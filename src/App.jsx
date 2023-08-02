@@ -8,7 +8,7 @@ export default function App() {
 
   const [score, setScore] = useState(0);
   const [highScore, setHighScore] = useState(0);
-  const [dogImages, setDogImages] = useState([]);
+  const [dogs, setDogs] = useState([]);
   const [previous, setPrevious] = useState([]);
 
   useEffect(() => {
@@ -19,16 +19,32 @@ export default function App() {
         .then(dog => dog.message));
     }
     Promise.all(dogPromises)
-      .then(dogs => setDogImages(dogs));
+      .then(dogImages => setDogs(dogImages.map(dogImage => ({
+        image: dogImage,
+        id: uuid()
+      }))));
 
   }, []);
 
-  const dogs = dogImages.map(dogImage => ({
-    image: dogImage,
-    id: uuid()
-  }));
+  function handleClick(id){
+    if(previous.some(prevId => prevId === id)){
+      if(score > highScore){
+        setHighScore(score);
+      }
+      setScore(0);
+      setPrevious([]);
+    }else{
+      setPrevious(currPrevious => [...currPrevious, id]);
+      setScore(currScore => currScore + 1);
+    }
+    shuffle();
+  }
 
-  const cards = dogs.map(dog => <Card key={dog.id} image={dog.image} />)
+  function shuffle(){
+    setDogs(currDogs => currDogs.sort(() => (Math.random() > .5) ? 1 : -1));
+  }
+
+  const cards = dogs.map(dog => <Card handleClick={() => handleClick(dog.id)} key={dog.id} image={dog.image} />)
   return (
     <>
       <Heading />
