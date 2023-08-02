@@ -1,5 +1,6 @@
 import {useState, useEffect} from "react";
 import Heading from "./components/Heading";
+import {v4 as uuid} from "uuid";
 
 export default function App() {
 
@@ -19,12 +20,18 @@ export default function App() {
 
   }, []);
 
+  const dogs = dogImages.map(dogImage => ({
+    image: dogImage,
+    id: uuid()
+  }));
+
+  const dogElements = dogs.map(dog => <img key={dog.id} src={dog.image}/>)
   return (
     <>
       <Heading />
       <div>Score: {score}</div>
       <div>Best Score: {highScore}</div>
-      <div>{dogImages}</div>
+      <div>{dogElements}</div>
     </>
   );
 }
