@@ -1,0 +1,10 @@
+button{
+    padding: 0;
+    border: 0;
+    cursor: pointer;
+}
+
+button > img{
+    width: 200px;
+    height: auto;
+}

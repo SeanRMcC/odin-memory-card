@@ -2,12 +2,14 @@ import {useState, useEffect} from "react";
 import Heading from "./components/Heading";
 import Card from "./components/Card";
 import {v4 as uuid} from "uuid";
+import "./styles.css";
 
 export default function App() {
 
   const [score, setScore] = useState(0);
   const [highScore, setHighScore] = useState(0);
   const [dogImages, setDogImages] = useState([]);
+  const [previous, setPrevious] = useState([]);
 
   useEffect(() => {
     const dogPromises = [];
