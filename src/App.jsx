@@ -13,7 +13,7 @@ export default function App() {
 
   useEffect(() => {
     const dogPromises = [];
-    for(let i = 0; i < 10; i++){
+    for(let i = 0; i < 12; i++){
       dogPromises.push(fetch("https://dog.ceo/api/breeds/image/random", {mode: "cors"})
         .then(response => response.json())
         .then(dog => dog.message));
@@ -48,9 +48,11 @@ export default function App() {
   return (
     <>
       <Heading />
-      <div>Score: {score}</div>
-      <div>Best Score: {highScore}</div>
-      <div>{cards}</div>
+      <div className="scores">
+        <div>Score: {score}</div>
+        <div>Best Score: {highScore}</div>
+      </div>
+      <div className="card-grid">{cards}</div>
     </>
   );
 }

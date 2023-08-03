@@ -1,10 +1,78 @@
+@font-face {
+    font-family: Roboto;
+    src: url(./assets/Roboto.ttf);
+}
+
+*{
+    font-family: Roboto;
+}
+
+@keyframes cardSpin {
+    from{
+        transform: rotate(0deg);
+    }
+    25%{
+        transform: rotate(2deg);
+    }
+    50%{
+        transform: rotate(0deg);
+    }
+    75%{
+        transform: rotate(-2deg)
+    }
+    to{
+        transform: rotate(0deg);
+    }
+    
+
+}
+
+h1{
+    text-align: center;
+    text-shadow: 2px 2px gold;
+    font-size: 3rem;
+}
+
+p{
+    text-align: center;
+    font-size: 1.25rem;
+}
+
+.scores{
+    padding-top: 10px;
+    position: sticky;
+    top: 0;
+    z-index: 2;
+    background-color: white;
+    font-size: 1.5rem;
+}
+
 button{
     padding: 0;
     border: 0;
     cursor: pointer;
+    background-color: white;
 }
 
 button > img{
     width: 200px;
     height: auto;
+    border-radius: 10px;
+    box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.5);
+    transition: transform 30s;
+    animation: cardSpin 3s linear infinite;
+}
+
+img:hover{
+    box-shadow: 3px 3px 10px gold;
+    transform: rotate(1turn);
+}
+
+.card-grid{
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    align-items: center;
+    justify-items: center;
+    row-gap: 10px;
+    margin-top: 20px;
 }
