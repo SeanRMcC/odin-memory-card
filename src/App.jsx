@@ -38,11 +38,19 @@ export default function App() {
     }else{
       setPrevious(currPrevious => [...currPrevious, id]);
       setScore(currScore => currScore + 1);
-      if(score + 1 === level * 4){
+      if(score + 1 === calculateThreshold(level)){
         setLevel(currLevel => currLevel + 1);
       }
     }
     shuffle();
+  }
+
+  function calculateThreshold(level){
+    let threshold = 0;
+    for(let i = 1; i <= level; i++){
+      threshold += i * 4;
+    }
+    return threshold;
   }
 
   function shuffle(){
