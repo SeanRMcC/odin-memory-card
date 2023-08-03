@@ -10,10 +10,11 @@ export default function App() {
   const [highScore, setHighScore] = useState(0);
   const [dogs, setDogs] = useState([]);
   const [previous, setPrevious] = useState([]);
+  const [level, setLevel] = useState(1);
 
   useEffect(() => {
     const dogPromises = [];
-    for(let i = 0; i < 12; i++){
+    for(let i = 0; i < level * 4; i++){
       dogPromises.push(fetch("https://dog.ceo/api/breeds/image/random", {mode: "cors"})
         .then(response => response.json())
         .then(dog => dog.message));
@@ -24,7 +25,7 @@ export default function App() {
         id: uuid()
       }))));
 
-  }, []);
+  }, [level]);
 
   function handleClick(id){
     if(previous.some(prevId => prevId === id)){
@@ -33,9 +34,13 @@ export default function App() {
       }
       setScore(0);
       setPrevious([]);
+      setLevel(1);
     }else{
       setPrevious(currPrevious => [...currPrevious, id]);
       setScore(currScore => currScore + 1);
+      if(score + 1 === level * 4){
+        setLevel(currLevel => currLevel + 1);
+      }
     }
     shuffle();
   }
@@ -48,7 +53,8 @@ export default function App() {
   return (
     <>
       <Heading />
-      <div className="scores">
+      <div className="stats">
+        <div>Level: {level}</div>
         <div>Score: {score}</div>
         <div>Best Score: {highScore}</div>
       </div>
